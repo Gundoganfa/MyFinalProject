@@ -43,3 +43,20 @@ services.AddSingleton<IProductService,ProductManager>();
 
 .AddTransient gibi bazı methodlar ise datalı olduğunda kullanılır.
 
+//Autofac, Ninject, CastleWindsor, StructureMap, LightInject, DryInject --> IoC Container projeleri, builtin IoC Container mimarisi yokken böyle projeler vardı, .NETCore ile Autofac iyi işler çıkarmaya başladı?
+//.net'in altyapısı varken niye autofac kullanalım?
+//AOP yapacağız da ondan. 
+
+// AOP nedir? Bir metodun önünde, sonunda, hata verdiğinde, vb. çalışan kod parçacıklarını bunun içine yazıyoruz.
+// Business içinde business yazılır, loglama yönetimi, validasyon yönetimi vb. business metodlarının içine yazılmamalıdır.
+// metodun üzerine [LogAspect] yazar geçersiniz -> loglar
+// [Validate] der geçersiniz ->gelen parametreyi kontrol eder, sınır değer vb.
+// [RemoveCache] 
+// [Transaction] -> Hata olursa geri al
+// [Performance] -> Metod çalışması uzarsa uyar, sistem yavaştır
+// vb. gibi
+// metod üstüne değil class üstüne yazarsanız o class'ın tüm metodlarını loglar. 
+//
+// Bu olaya AOP deniyor.
+// Autofac bize AOP imkanı sunuyor (başkaları da sunuyor olabilir ama biz autofac'i enjekte edeceğiz)
+
