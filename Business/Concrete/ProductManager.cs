@@ -36,11 +36,11 @@ namespace Business.Concrete
         public IDataResult<List<Product>> GetAll()
         {
             //iş kodları
-            if (DateTime.Now.Hour == 22) //sistem saatini verir
-            {
-                //hergün sistem saati 22 olduğunda ürün listelemeyi kapatmak istiyoruz
-                return new ErrorDataResult<List<Product>>(Messages.MaintenanceTime);
-            }
+            //if (DateTime.Now.Hour == 22) //sistem saatini verir
+            //{
+            //    //hergün sistem saati 22 olduğunda ürün listelemeyi kapatmak istiyoruz
+            //    return new ErrorDataResult<List<Product>>(Messages.MaintenanceTime);
+            //}
             return new SuccessDataResult<List<Product>>(_productDal.GetAll(), Messages.ProductsListed);
         }
         public IDataResult<Product> GetById(int productId)
