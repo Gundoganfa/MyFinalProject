@@ -22,6 +22,10 @@ namespace Business.Concrete
 
         public IResult Add(Product product)
         {
+            // business code
+            // validation : gelen bir nesnenin iş kurallarına uygun olup olmadığını test etmeye validation deniyor
+            // bu iki kodu ayrı ayrı yazacağız. 
+
             if (product.ProductName.Length <2 )
             {
                 //magic strings

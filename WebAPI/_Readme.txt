@@ -60,3 +60,6 @@ services.AddSingleton<IProductService,ProductManager>();
 // Bu olaya AOP deniyor.
 // Autofac bize AOP imkanı sunuyor (başkaları da sunuyor olabilir ama biz autofac'i enjekte edeceğiz)
 
+17.02.2021
+Postsharp diye bir AOP da var bu ücretli olduğu için biz Autofac kullanacağız.
+Autofac'i solutiona tanıtırken, WebApi içinde probram.cs'ye UseServiceProviderFactory ile konfigüre ediyoruz
