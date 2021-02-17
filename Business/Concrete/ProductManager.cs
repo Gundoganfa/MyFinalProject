@@ -1,9 +1,12 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.DTOs;
+using FluentValidation;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -25,13 +28,10 @@ namespace Business.Concrete
             // business code
             // validation : gelen bir nesnenin iş kurallarına uygun olup olmadığını test etmeye validation deniyor
             // bu iki kodu ayrı ayrı yazacağız. 
+            
+            
+            ValidationTool.Validate(new ProductValidator(), product);
 
-            if (product.ProductName.Length <2 )
-            {
-                //magic strings
-                //return new ErrorResult("Ürün ismi en az 2 karakter olmalıdır");
-                return new ErrorResult(Messages.ProductNameInvalid);
-            }
             _productDal.Add(product);
             return new SuccessResult(Messages.ProductAdded);
             //return new SuccessResult(); // bu da mümkün
