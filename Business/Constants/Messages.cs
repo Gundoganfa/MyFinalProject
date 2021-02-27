@@ -10,7 +10,7 @@ namespace Business.Constants
         public static string ProductAddError = "Ürün ekleme hatası";
         public static string ProductUpdated = "Ürün güncellendi";
         public static string ProductNameExists = "Aynı isimde ürün mevcut";
-
+        public static string CategoryLimitExceeded = "Kategorideki ürün limiti doldu";
 
         public static string ProductsListed = "Ürünler listelendi";
         public static string ProductNameInvalid = "Ürün ismi geçersiz";
