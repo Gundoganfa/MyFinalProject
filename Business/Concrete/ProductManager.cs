@@ -28,14 +28,12 @@ namespace Business.Concrete
         public IResult Add(Product product)
         {
             // business code
-            var result = _productDal.GetAll(p => p.CategoryId == product.CategoryId).Count;
-            if (result >= 10)
+            if (CheckIfProductCountOfCategoryIsCorrect(product.CategoryId).Success)
             {
-                return new ErrorResult(Messages.ProductCountOfCategoryError);
+                _productDal.Add(product);
+                return new SuccessResult(Messages.ProductAdded);
             }
-            _productDal.Add(product);
-            return new SuccessResult(Messages.ProductAdded);
-            
+            return new ErrorResult(Messages.ProductAddError);
         }
 
         public IDataResult<List<Product>> GetAll()
@@ -71,14 +69,20 @@ namespace Business.Concrete
         public IResult Update(Product product)
         {
             // business code
-            var result = _productDal.GetAll(p => p.CategoryId == product.CategoryId).Count;
+            
+            _productDal.Update(product);
+            return new SuccessResult(Messages.ProductUpdated);
+
+        }
+
+        private IResult CheckIfProductCountOfCategoryIsCorrect(int categoryId)
+        {
+            var result = _productDal.GetAll(p => p.CategoryId == categoryId).Count;
             if (result >= 10)
             {
                 return new ErrorResult(Messages.ProductCountOfCategoryError);
             }
-            _productDal.Update(product);
-            return new SuccessResult(Messages.ProductUpdated);
-
+            return new SuccessResult();
         }
     }
 }

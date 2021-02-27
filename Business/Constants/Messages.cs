@@ -7,6 +7,7 @@ namespace Business.Constants
     public static class Messages
     {
         public static string ProductAdded = "Ürün eklendi";
+        public static string ProductAddError = "Ürün ekleme hatası";
         public static string ProductUpdated = "Ürün güncellendi";
         
         public static string ProductsListed = "Ürünler listelendi";
