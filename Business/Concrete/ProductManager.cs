@@ -4,6 +4,7 @@ using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Validation;
+using Core.Utilities.Business;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -11,6 +12,7 @@ using Entities.DTOs;
 using FluentValidation;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Business.Concrete
@@ -27,13 +29,16 @@ namespace Business.Concrete
         [ValidationAspect(typeof(ProductValidator))]
         public IResult Add(Product product)
         {
-            // business code
-            if (CheckIfProductCountOfCategoryIsCorrect(product.CategoryId).Success)
+            IResult result = BusinessRules.Run(CheckIfProductCountOfCategoryIsCorrect(product.CategoryId),
+                    CheckIfProductNameExists(product.ProductName));
+
+            if (result != null)
             {
-                _productDal.Add(product);
-                return new SuccessResult(Messages.ProductAdded);
+                return result;
             }
-            return new ErrorResult(Messages.ProductAddError);
+
+            _productDal.Add(product);
+            return new SuccessResult(Messages.ProductAdded);;
         }
 
         public IDataResult<List<Product>> GetAll()
@@ -83,6 +88,16 @@ namespace Business.Concrete
                 return new ErrorResult(Messages.ProductCountOfCategoryError);
             }
             return new SuccessResult();
+        }
+
+        private IResult CheckIfProductNameExists(string productName)
+        {
+            var result = _productDal.GetAll(p => p.ProductName == productName).Any();
+            if (result)
+            {
+                return new ErrorResult(Messages.ProductNameExists);
+            }
+            return new SuccessResult();       
         }
     }
 }
