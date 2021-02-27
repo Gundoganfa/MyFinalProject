@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Business.CCS;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
@@ -17,23 +18,30 @@ namespace Business.Concrete
     public class ProductManager : IProductService
     {
         IProductDal _productDal;
+        ILogger _logger;
 
-        public ProductManager(IProductDal iProductDal)
+        public ProductManager(IProductDal iProductDal, ILogger logger) //ILogger autofac ile bellekte oluşturulan bir FileLogger referansı
         {
             // Constructor
             _productDal = iProductDal;
+            _logger = logger; // Dependency injection
         }
 
-        [ValidationAspect(typeof(ProductValidator))]
+        //[ValidationAspect(typeof(ProductValidator))]
         public IResult Add(Product product)
         {
-            // business code
-            // validation : gelen bir nesnenin iş kurallarına uygun olup olmadığını test etmeye validation deniyor
-            // bu iki kodu ayrı ayrı yazacağız. 
-           
-            _productDal.Add(product);
-            return new SuccessResult(Messages.ProductAdded);
-            //return new SuccessResult(); // bu da mümkün
+            _logger.Log();
+            try // Eğer tüm cross cutting concernleri business içine yazdığımızı düşünürsek, burası çorba olur.
+            {
+                // business code
+                _productDal.Add(product);
+                return new SuccessResult(Messages.ProductAdded);
+            }
+            catch (Exception exception)
+            {
+                _logger.Log();
+            }
+            return new ErrorResult();
         }
 
         public IDataResult<List<Product>> GetAll()
