@@ -27,21 +27,13 @@ namespace Business.Concrete
             _logger = logger; // Dependency injection
         }
 
-        //[ValidationAspect(typeof(ProductValidator))]
+        [ValidationAspect(typeof(ProductValidator))]
         public IResult Add(Product product)
         {
-            _logger.Log();
-            try // Eğer tüm cross cutting concernleri business içine yazdığımızı düşünürsek, burası çorba olur.
-            {
-                // business code
-                _productDal.Add(product);
-                return new SuccessResult(Messages.ProductAdded);
-            }
-            catch (Exception exception)
-            {
-                _logger.Log();
-            }
-            return new ErrorResult();
+            // business code
+            _productDal.Add(product);
+            return new SuccessResult(Messages.ProductAdded);
+            
         }
 
         public IDataResult<List<Product>> GetAll()
