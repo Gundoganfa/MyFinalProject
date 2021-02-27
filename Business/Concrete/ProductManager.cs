@@ -18,13 +18,10 @@ namespace Business.Concrete
     public class ProductManager : IProductService
     {
         IProductDal _productDal;
-        ILogger _logger;
 
-        public ProductManager(IProductDal iProductDal, ILogger logger) //ILogger autofac ile bellekte oluşturulan bir FileLogger referansı
+        public ProductManager(IProductDal iProductDal) 
         {
-            // Constructor
             _productDal = iProductDal;
-            _logger = logger; // Dependency injection
         }
 
         [ValidationAspect(typeof(ProductValidator))]
