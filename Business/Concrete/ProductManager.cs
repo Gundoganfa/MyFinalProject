@@ -1,6 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
@@ -23,15 +24,13 @@ namespace Business.Concrete
             _productDal = iProductDal;
         }
 
+        [ValidationAspect(typeof(ProductValidator))]
         public IResult Add(Product product)
         {
             // business code
             // validation : gelen bir nesnenin iş kurallarına uygun olup olmadığını test etmeye validation deniyor
             // bu iki kodu ayrı ayrı yazacağız. 
-            
-            
-            ValidationTool.Validate(new ProductValidator(), product);
-
+           
             _productDal.Add(product);
             return new SuccessResult(Messages.ProductAdded);
             //return new SuccessResult(); // bu da mümkün
