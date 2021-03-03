@@ -11,8 +11,8 @@ using System.Threading.Tasks;
 
 namespace WebAPI.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController] // c#'da ATTRIBUTE deriz buna, JAVA'da ANNOTATION // Bir class ile ilgili bilgi verme, imzalama yöntemidir.
+    [Route("api/[controller]")]
     public class ProductsController : ControllerBase
     {
         //Loosely coupled // Constructor injection
