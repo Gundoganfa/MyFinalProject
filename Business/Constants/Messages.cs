@@ -13,6 +13,7 @@ namespace Business.Constants
         public static string CategoryLimitExceeded = "Kategorideki ürün limiti doldu";
 
         public static string ProductsListed = "Ürünler listelendi";
+        public static string ProductDeleted = "Ürün silindi";
         public static string ProductNameInvalid = "Ürün ismi geçersiz";
         public static string MaintenanceTime = "Sistem bakımda.";
         public static string ProductCountOfCategoryError = "Kategorideki ürün sayısı 10'un üzerinde olduğunda yeni ürün girilemez";

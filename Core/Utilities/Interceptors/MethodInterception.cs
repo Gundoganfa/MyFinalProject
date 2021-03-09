@@ -3,6 +3,7 @@ using System;
 
 namespace Core.Utilities.Interceptors
 {
+    //2021
     public abstract class MethodInterception : MethodInterceptionBaseAttribute
     {
         //invocation : business method (Add üzerinde aspect tanımlarsak, invocation Add methodunun kendisi oluyor)
